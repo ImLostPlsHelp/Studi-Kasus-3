@@ -1,0 +1,200 @@
+package io;
+import java.util.Scanner;
+import java.text.NumberFormat;
+import java.util.Locale;
+
+public class studikasus3 {
+    public static void main(String[] args) {
+        Scanner kasustiga = new Scanner(System.in);
+
+        String nama, nik, alamat, nomortelepon, tanggalberangkat, stasiunawal, stasiuntujuan;
+        int jenistiket, jumlahtiket, bayar, input, output, jarak, hargatiket; 
+        int hargaekonomi = (4000/10);
+        int hargabusiness = (7000/10);
+        int hargafirst = (10000/10);
+        jarak = 0;
+        input = 1;
+        hargatiket = 0;
+        int ulang = 1;
+        int ulangkembalian = 1;
+
+        System.out.println("\n\n=================================================");
+        System.out.println("\t\tFILKOM RAIL EXPRESS");
+        System.out.println("  \t  PROGRAM PEMESANAN TIKET KERETA");
+        System.out.println("=================================================");
+        
+        while(ulang == 1) {
+
+        System.out.println("\nMenu");
+        System.out.println("1. Beli Tiket");
+        System.out.println("2. Lihat Jenis Tiket");
+        System.out.println("3. List Stasiun");
+        System.out.println("4. Keluar");
+        System.out.print("Masukkan pilihan anda : ");
+        int condition = kasustiga.nextInt();
+
+            if (condition == 1) {
+                //keseluruhan kode (kondisi 1)
+                System.out.println("Silahkan masukkan data diri Anda");
+                kasustiga.nextLine();
+                System.out.print("Nama \t\t\t : ");
+                nama = kasustiga.nextLine();
+                System.out.print("NIK \t\t\t : ");
+                nik = kasustiga.nextLine();
+                System.out.print("Alamat \t\t\t : ");
+                alamat = kasustiga.nextLine();
+                System.out.print("Nomor Telepon \t\t : ");
+                nomortelepon = kasustiga.nextLine();
+                System.out.println("=================================================");
+                System.out.println("Silahkan pilih tiket Anda");
+                System.out.println("=================================================");
+                System.out.println("List stasiun tersedia : ");
+                System.out.println("1.Malang" + " \t 4.Semarang" + " \t 7.Serang" + " \n2.Surabaya" + " \t 5.Bandung"  + " \n3.Yogyakarta" + " \t 6.Jakarta");
+                System.out.println("\nJenis Tiket : ");
+                System.out.println("1. Economy Class \n2. Business Class \n3. First Class");
+                System.out.print("\nTanggal Keberangkatan \t : ");
+                tanggalberangkat = kasustiga.nextLine();
+                System.out.print("Stasiun Awal \t\t : ");
+                stasiunawal = kasustiga.nextLine();
+                System.out.print("Stasiun Tujuan \t\t : ");
+                stasiuntujuan = kasustiga.nextLine();
+                System.out.print("Jenis Tiket \t\t : ");
+                jenistiket = kasustiga.nextInt();
+                System.out.print("Jumlah Tiket \t\t : ");
+                jumlahtiket = kasustiga.nextInt();
+                System.out.print("Nominal Pembayaran \t : ");
+                bayar = kasustiga.nextInt();
+
+        if(stasiunawal.equals("Malang") || stasiunawal.equals("Surabaya") || stasiunawal.equals("Yogyakarta")) {
+            if(stasiunawal.equals("Malang")) {
+                switch (stasiuntujuan) {
+                    case "Surabaya":
+                    jarak = 100; break;
+                    case "Yogyakarta":
+                    jarak = 400; break;
+                    case "Serang":
+                    jarak = 1000; break;
+                    default :
+                    input = 0; break;
+                }
+            }
+            else if (stasiunawal.equals("Surabaya")) {
+                switch (stasiuntujuan) {
+                    case "Semarang":
+                    jarak = 350; break;
+                    case "Bandung":
+                    jarak = 700; break;
+                    default:
+                    input = 0; break;
+                }
+            }
+            else if (stasiunawal.equals("Yogyakarta")) {
+                switch (stasiuntujuan) {
+                    case "Jakarta":
+                    jarak = 500; break;
+                    default :
+                    input = 0; break;
+                }
+            }
+        }else {
+            input = 0;
+        }
+        if (jenistiket == 1) {
+            hargatiket = hargaekonomi * jarak * jumlahtiket;
+        }
+            else if (jenistiket == 2) {
+            hargatiket = hargabusiness * jarak * jumlahtiket;
+            }
+            else if (jenistiket == 3) {
+            hargatiket = hargafirst * jarak * jumlahtiket;
+            }
+            else {
+            input = 0;
+            }
+        
+        int kembalian = bayar - hargatiket;
+        NumberFormat NumberFormatter = NumberFormat.getNumberInstance(Locale.GERMANY);
+        String kembalianstr = NumberFormatter.format(kembalian);
+        String bayarstr = NumberFormatter.format(bayar);
+        String hargatiketstr = NumberFormatter.format(hargatiket);
+
+        if (input == 1) {
+            if (kembalian >= 0) {
+            System.out.println("=================================================");
+            System.out.println("\t     Pemesanan Tiket Berhasil");
+            System.out.println("=================================================");
+            System.out.println("\t\tDETAIL PESANAN");
+            System.out.println("=================================================");
+            System.out.println("Nama \t\t\t : " + nama);
+            System.out.println("NIK \t\t\t : " + nik);
+            System.out.println("Alamat \t\t\t : " + alamat);
+            System.out.println("Nomor Telepon \t\t : " + nomortelepon);
+            System.out.println("Tanggal Keberangkatan \t : " + tanggalberangkat);
+            System.out.println("Rute \t\t\t : " + stasiunawal + "-" + stasiuntujuan + "(" + jarak + " km)");
+            System.out.println("Jumlah Tiket \t\t : " + jumlahtiket);
+            System.out.println("\nTotal Harga \t\t : " + hargatiketstr + ",-");
+            System.out.println("Nominal Pembayaran \t : " + bayarstr + ",-");
+            System.out.println("Kembalian \t\t : " + kembalianstr + ",-");
+        }
+        else if (kembalian < 0) {
+            while (ulangkembalian == 1) {
+                System.out.println("\nMaaf, uang anda tidak mencukupi");
+                System.out.println("1. Batalkan Pesanan");
+                System.out.println("2. Ulangi Pembayaran");
+                int pengulangankembalian = kasustiga.nextInt();
+                if (pengulangankembalian == 1) {
+                    break;
+                }
+                else if (pengulangankembalian == 2) {
+                    System.out.print("Nominal Pembayaran\t: ");
+                    int bayarlagi = kasustiga.nextInt();
+                    int kembalianlagi = bayarlagi - hargatiket;
+                    String bayarlagistr = NumberFormatter.format(bayarlagi);
+                    String kembalianlagistr = NumberFormatter.format(kembalianlagi);
+                    if (kembalianlagi > 0) {
+                        System.out.println("=================================================");
+                        System.out.println("\t     Pemesanan Tiket Berhasil");
+                        System.out.println("=================================================");
+                        System.out.println("\t\tDETAIL PESANAN");
+                        System.out.println("=================================================");
+                        System.out.println("Nama \t\t\t : " + nama);
+                        System.out.println("NIK \t\t\t : " + nik);
+                        System.out.println("Alamat \t\t\t : " + alamat);
+                        System.out.println("Nomor Telepon \t\t : " + nomortelepon);
+                        System.out.println("Tanggal Keberangkatan \t : " + tanggalberangkat);
+                        System.out.println("Rute \t\t\t : " + stasiunawal + "-" + stasiuntujuan + "(" + jarak + " km)");
+                        System.out.println("Jumlah Tiket \t\t : " + jumlahtiket);
+                        System.out.println("\nTotal Harga \t\t : " + hargatiketstr + ",-");
+                        System.out.println("Nominal Pembayaran \t : " + bayarlagistr + ",-");
+                        System.out.println("Kembalian \t\t : " + kembalianlagistr + ",-");
+                        break;
+                    }
+                }
+
+            }
+        }
+    }
+        if (input == 0) {
+            System.out.println("=================================================");
+            System.out.println("\t Maaf, rute tidak ditemukan");
+            System.out.println("=================================================");
+        }
+            }
+            else if (condition == 2) {
+                 //Jenis tiket (kondisi 2)
+        System.out.println("\nJenis Tiket : ");
+        System.out.println("1. Economy Class \n2. Business Class \n3. First Class");
+            }
+            else if (condition == 3) {
+                //List stasiun (kondisi 3)
+        System.out.println("\n\nList stasiun tersedia : ");
+        System.out.println("1.Malang" + " \t 4.Semarang" + " \t 7.Serang" + " \n2.Surabaya" + " \t 5.Bandung"  + " \n3.Yogyakarta" + " \t 6.Jakarta");
+            }
+            else {
+                break;
+            }
+    }
+
+}
+    
+}
